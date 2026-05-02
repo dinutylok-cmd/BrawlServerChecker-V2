@@ -9,10 +9,15 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Build APK
-        run: npx android-build-setup && gradle assembleDebug
-      - name: Upload
+      
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+      
+      - name: Build with Gradle
+        run: gradle assembleDebug
+        
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
+          name: brawl-monitor
           path: app/build/outputs/apk/debug/*.apk
